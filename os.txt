@@ -1,0 +1,17 @@
+openssl genrsa -out private.key 2048
+
+openssl req -nodes -newkey rsa:2048 -keyout custom.key -out custom.csr
+
+openssl req -x509 -sha512 -nodes -days 730 -newkey rsa:2048 -keyout custom.key -out custom.pem
+
+openssl req -noout -text -in custom.csr
+
+openssl rsa -in private.key -check
+
+openssl x509 -in custom.pem -noout -issuer -issuer_hash
+
+openssl x509 -noout -hash -in custom.pem
+
+openssl x509 -outform der -in custom.pem -out custom.der
+
+openssl x509 -noout -in custom.pem -dates
